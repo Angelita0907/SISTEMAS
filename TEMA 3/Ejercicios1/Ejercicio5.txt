@@ -1,0 +1,13 @@
+@echo off
+echo Elige una opcion:
+echo A. Opcion 1
+echo B. Opcion 2
+echo C. Opcion 3
+choice /C ABC /M "Presiona A, B o C para continuar."
+if errorlevel 3 (
+    echo Has seleccionado la opcion C.
+) else if errorlevel 2 (
+    echo Has seleccionado la opcion B.
+) else if errorlevel 1 (
+    echo Has seleccionado la opcion A.
+)

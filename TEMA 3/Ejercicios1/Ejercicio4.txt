@@ -1,0 +1,11 @@
+@echo off
+mkdir Ejemplo
+mkdir Ejemplo\archivo.txt
+echo Desea eliminar el directorio (S/N)?
+set /p opcion=
+if %opcion% = "S" (
+rmdir Ejemplo
+echo Directorio eliminado
+) else (
+echo No se ha eliminado el directorio
+)
