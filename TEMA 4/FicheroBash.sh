@@ -136,13 +136,160 @@ do
 done
 
 
-# 
+# argumentos
+
+#! /bin/bash
+'@ son todos los argumentos que recibe el script'
+
+args=("$@")
+
+echo "Resultasdo: ${args[0]} - ${args[1]} , ${args[2]}" 
 
 
+# stdin
+'imprime linea a linea el archivo que le pasemos'
+
+#! /bin/bash
+
+while read line
+do
+  echo $line
+done < "${1:-/dev/stdin}"
 
 
+#stderr y stdout
+
+'archivo.txt es el archivo que nosotros le indiquemos'
+
+#! /bin/bash
+
+ls -123 >archivo.txt 2 >$1
 
 
+# pipe
+
+#! /bin/bash
+
+MESSAGE="hola mundo"
+
+echo $MESSAGE | wc -m
 
 
+# string
 
+#! /bin/bash
+
+echo "Indica un nombre: "
+read name
+
+echo "Ahora un adjetivo: "
+read adjective
+
+# result="$name is $adjective"
+# echo $result
+
+echo ${name,,}
+echo ${name^^}
+
+# Este convierte las vocales a minúsculas
+echo ${name,,[AEIOU]}
+
+# Este convierte las vocales a mayúsculas
+echo ${name^^[aeious]}
+
+
+# numbers
+
+'exor es para calculos matematicos'
+
+#! /bin/bash
+
+x=10
+y=20
+
+echo $(( x + y ))
+echo $(( x - y ))
+echo $(( x * y ))
+echo $(( x / y ))
+echo $(( x % y ))
+
+echo $(expr $x + $y )
+echo $(expr $x - $y )
+echo $(expr $x \* $y )
+echo $(expr $x / $y )
+echo $(expr $x % $y )
+
+
+# arrays
+
+#! /bin/bash
+
+names=( "john" "mark" "james" "mary" "jane" "sue" "marcos" )
+
+echo "Los nombres son: ${names[*]}"
+echo "Los nombres son: ${names[@]}"
+
+echo "item 0: ${names[0]}"
+echo "item 2: ${names[2]}"
+
+echo "los índices: ${!names[@]}"
+
+echo "el total de items: ${#names[@]}"
+echo "el total de items: ${#names[*]}"
+
+echo "El último elemento es: ${names[${#names[@]}-1]}"
+
+for name in ${names[@]}
+do
+  echo "My name is : $name"
+done
+
+#delete an item
+#unset names[1]
+#echo "Los nombres son: ${names[*1]
+
+#append
+#names[$(#names[@]}]="bob"
+#echo items: $(names[+]}"
+
+#names+("Bob")
+#names+("Maria")
+#names+("Juan")
+#echo "items: $(names[*]}"
+
+
+# funciones
+
+#! /bin/bash
+
+function diHola() {
+  message="Hola yo soy $1, tengo $2 años"
+  echo $message
+}
+
+diHola "jose" 50
+diHola "jesus" 30
+
+function diHola2() {
+  message="Hola"
+  echo $message
+}
+
+diHola2
+
+# directorios
+
+#! /bin/bash
+
+echo "nombre del archivo: "
+read file
+
+if [ -f $file ]
+then 
+  while IFS= read -r line
+  do  
+    echo $line
+  done < $file
+else
+  echo "El archivo $file no existe"
+fi
